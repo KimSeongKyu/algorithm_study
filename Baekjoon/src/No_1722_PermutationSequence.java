@@ -72,6 +72,11 @@ public class No_1722_PermutationSequence {
             return;
         }
 
+        // 1 2 6 24
+        // n = 4 (4자리 수 수열) 총 경우의 수 24
+        // 19번째 수를 찾는다
+        // x 1 2
+
         // 찾고자 하는 위치가 factorial(k-1)보다 크면
         // 실제 k번째 수가 현재의 탐색 중인 수보다 큼
         if(position > factorial(k-1)) {
