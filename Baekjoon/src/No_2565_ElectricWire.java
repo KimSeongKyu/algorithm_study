@@ -16,20 +16,18 @@ public class No_2565_ElectricWire {
             StringTokenizer st = new StringTokenizer(br.readLine());
             wire[i][0] = Integer.parseInt(st.nextToken());
             wire[i][1] = Integer.parseInt(st.nextToken());
+            wireCount[i] = 1;
         }
 
         Arrays.sort(wire, (o1, o2) -> o1[0]-o2[0]);
 
         int maxCount = 0;
         for(int i = 1; i <= n; i++) {
-            wireCount[i] = 1;
-
             for(int j = 1; j < i; j++) {
                 if(wire[j][1] < wire[i][1]) {
                     wireCount[i] = Math.max(wireCount[i], wireCount[j]+1);
                 }
             }
-
             if(maxCount < wireCount[i]) maxCount = wireCount[i];
         }
 
