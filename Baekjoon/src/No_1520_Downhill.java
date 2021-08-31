@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class No_1520_Downhill {
@@ -10,8 +9,7 @@ public class No_1520_Downhill {
     private final static int[] DY = {-1, 1, 0, 0};
 
     private static int[][] map;
-    private static boolean[][] hasPath;
-    private static int availablePathCount = 0;
+    private static int[][] availablePathCounts;
     private static int row, column;
 
     public static void main(String[] args) throws IOException {
@@ -22,38 +20,38 @@ public class No_1520_Downhill {
         column = Integer.valueOf(st.nextToken());
 
         map = new int[row][column];
+        availablePathCounts = new int[row][column];
+
         for (int i = 0; i < row; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < column; j++) {
                 map[i][j] = Integer.valueOf(st.nextToken());
+                availablePathCounts[i][j] = Integer.MAX_VALUE;
             }
         }
 
-        boolean[][] isVisited = new boolean[row][column];
-        hasPath = new boolean[row][column];
-
-        goDownhill(isVisited, 0, 0);
-
-        System.out.println(availablePathCount);
+        System.out.println(goDownhill(0, 0));
     }
 
-    private static boolean goDownhill(boolean[][] isVisited, int x, int y) {
-        if ((x == column - 1 && y == row - 1) || hasPath[y][x]) {
-            availablePathCount++;
-            return true;
+    private static int goDownhill(int x, int y) {
+        if (availablePathCounts[y][x] != Integer.MAX_VALUE) {
+            return availablePathCounts[y][x];
         }
 
-        isVisited[y][x] = true;
+        if (x == column - 1 && y == row - 1) {
+            return 1;
+        }
+
+        availablePathCounts[y][x] = 0;
         for (int k = 0; k < 4; k++) {
             int nx = x + DX[k];
             int ny = y + DY[k];
 
-            if(0 <= nx && nx < column && 0 <= ny && ny < row && !isVisited[ny][nx] && map[ny][nx] < map[y][x]) {
-                hasPath[ny][nx] = goDownhill(isVisited, nx, ny);
+            if (0 <= nx && nx < column && 0 <= ny && ny < row && map[ny][nx] < map[y][x]) {
+                availablePathCounts[y][x] += goDownhill(nx, ny);
             }
         }
 
-        isVisited[y][x] = false;
-        return false;
+        return availablePathCounts[y][x];
     }
 }
