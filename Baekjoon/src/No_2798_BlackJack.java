@@ -12,7 +12,7 @@ public class No_2798_BlackJack {
     private static int N;
     private static int maxSumOfCardNumbers;
     private static int[] cardNumbers;
-    private static int sumOfCardNumbers = 0;
+    private static int nearestSumOfCardNumbers = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,19 +28,16 @@ public class No_2798_BlackJack {
         }
 
         findNearestSumToMaxSumOfCardNumbers(0, 0);
-        System.out.println(sumOfCardNumbers);
+        System.out.println(nearestSumOfCardNumbers);
     }
 
     private static void findNearestSumToMaxSumOfCardNumbers(int step, int start) {
         if (step == R) {
             int sum = Arrays.stream(combination)
                     .reduce(0, Integer::sum);
-            if(sum <= maxSumOfCardNumbers) {
-                if(sumOfCardNumbers == 0) {
-                    sumOfCardNumbers = sum;
-                } else if(sumOfCardNumbers < sum) {
-                    sumOfCardNumbers = sum;
-                }
+
+            if(nearestSumOfCardNumbers < sum && sum <= maxSumOfCardNumbers) {
+                nearestSumOfCardNumbers = sum;
             }
             return;
         }
