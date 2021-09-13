@@ -37,20 +37,23 @@ public class No_2608_RomaNumber {
         System.out.println(sumString);
     }
 
-    private static String numberToString(int number, int numberOfDigit, String numberAsString,
-                                         String smallNumberAsString, String middleNumberAsString, String largeNumberAsString) {
+    private static String numberToString(int number, int numberOfDigit, String numberDigitOne,
+                                         String numberDigitFour, String numberDigitFive, String numberDigitNine) {
         int digit = number / numberOfDigit;
         String sum = "";
 
         if (digit == 4) {
-            return smallNumberAsString;
+            return numberDigitFour;
         } else if (digit == 5) {
-            return middleNumberAsString;
+            return numberDigitFive;
         } else if (digit == 9) {
-            return largeNumberAsString;
+            return numberDigitNine;
         } else {
+            if(digit > 5) {
+                sum += numberDigitFive;
+            }
             while (0 < digit && digit < 4 || 5 < digit && digit < 9) {
-                sum += numberAsString;
+                sum += numberDigitOne;
                 --digit;
             }
         }
